@@ -30,6 +30,7 @@ The main SPI driver has been patched to ensure the MA35D1 hardware operates as a
 ### Mandatory Device Tree (DTS) Configuration
 To use the patched driver, configure the SPI node in your target DTS file as follows:
 
+```dts
 &spi2 {
     status = "okay";
     pinctrl-names = "default";
@@ -46,6 +47,7 @@ To use the patched driver, configure the SPI node in your target DTS file as fol
         spi-max-frequency = <10000000>;
     };
 };
+```
 
 ---
 
