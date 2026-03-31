@@ -4,6 +4,9 @@ This project provides a kernel patch and a user-space test application for high-
 
 The default SPI kernel driver in the Nuvoton BSP often forces hardware registers into Master mode even when Slave mode is declared in the Device Tree. This leads to bus contention and voltage drops on the Chip Select (CS) pin. This repository provides a kernel driver patch to resolve these issues, along with application code to verify proper operation.
 
+## IMPORTANT: Hardware Modification Required
+On the NUMAKER-MA35D1 evaluation board, pins PL.0 to PL.3 are hard-wired to the **UART11** interface by default via series resistors. To use these pins for SPI2 communication without signal interference, you must remove the series resistors connected to **UART11** on the board.
+
 ---
 
 ## 🛠️ Kernel Domain Changes
@@ -63,6 +66,11 @@ A build script for cross-compiling the application.
 ---
 
 ## 🚀 Build & Test Guide
+
+### Hardware Modification (Mandatory for NUMAKER-MA35D1)
+Before testing, ensure the following hardware adjustment is made to avoid signal contention:
+
+* **Remove UART11 Series Resistors**: On the NUMAKER-MA35D1 board, pins **PL.0, PL.1, PL.2, and PL.3** are shared with **UART11**. You must physically remove the series resistors connecting these pins to the UART11 interface to ensure clean SPI2 signals.
 
 ### Build Instructions
 1.  **Kernel Build**: Overwrite the existing kernel source with the provided `spi-ma35d1-spi.c` and update your DTS file. Rebuild the kernel image and flash it to the board.
